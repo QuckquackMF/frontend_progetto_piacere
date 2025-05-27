@@ -1,27 +1,75 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ApiserviceService } from './service';
-import { JsonPipe } from '@angular/common'; // Import JsonPipe directly
+import { CommonModule, JsonPipe } from '@angular/common'; // Import CommonModule for ngIf, ngFor etc.
+import { ApiserviceService } from './service'; // Correct path to service
+import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 
 @Component({
-  selector: 'app-root',
-  standalone: true, // Mark as a standalone component
-  imports: [JsonPipe], // Import HttpClient and JsonPipe
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule, JsonPipe, FormsModule],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  newdata: any;
+    title = 'Flask API Frontend';
+    apiResponse: any;
+    searchTerm: string = '';
 
-  constructor(public _apiservice: ApiserviceService) {}
+    constructor(private _apiservice: ApiserviceService) { }
 
-  ngOnInit() {
-    this.getData();
-  }
+    ngOnInit() {
+        this.callHome();
+    }
 
-  getData() {
-    this._apiservice.getdata().subscribe((res) => {
-      this.newdata = res;
-    });
-  }
+    callHome() {
+        this._apiservice.getHome().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callAllData() {
+        this._apiservice.getAllData().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callNames() {
+        this._apiservice.getNames().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callProfession() {
+        this._apiservice.getProfession().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callDegree() {
+        this._apiservice.getDegree().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callRanking() {
+        this._apiservice.getRanking().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callRandomPerson() {
+        this._apiservice.getRandomPerson().subscribe(res => {
+            this.apiResponse = res;
+        });
+    }
+
+    callSearch() {
+        if (this.searchTerm) {
+            this._apiservice.searchByName(this.searchTerm).subscribe(res => {
+                this.apiResponse = res;
+            });
+        } else {
+            this.apiResponse = { message: "Please enter a search term." };
+        }
+    }
 }

@@ -1,1 +1,27 @@
-<pre>{{ newdata | json }}</pre>
+<div class="container my-4">
+    <h1 class="text-center mb-4">{{ title }}</h1>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-center mb-4">
+        <button class="btn btn-primary me-2" (click)="callHome()">Home</button>
+        <button class="btn btn-secondary me-2" (click)="callAllData()">Get All Data</button>
+        <button class="btn btn-info me-2" (click)="callNames()">Get Names</button>
+        <button class="btn btn-success me-2" (click)="callProfession()">Get Profession</button>
+        <button class="btn btn-warning me-2" (click)="callDegree()">Get Degree</button>
+        <button class="btn btn-danger me-2" (click)="callRanking()">Get Ranking</button>
+        <button class="btn btn-dark me-2" (click)="callRandomPerson()">Get Random Person</button>
+    </div>
+
+    <div class="input-group mb-4 justify-content-center">
+        <input type="text" class="form-control" placeholder="Search by name..." [(ngModel)]="searchTerm">
+        <button class="btn btn-outline-primary" type="button" (click)="callSearch()">Search</button>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            API Response
+        </div>
+        <div class="card-body">
+            <pre class="bg-light p-3 rounded">{{ apiResponse | json }}</pre>
+        </div>
+    </div>
+</div>
